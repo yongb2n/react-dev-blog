@@ -9,7 +9,8 @@ function App() {
     "인스타 맛집 추천",
     "예쁜 카페 추천",
   ]);
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState([0, 0, 0]);
+  const [modal, setModal] = useState(false);
 
   return (
     <div className="App">
@@ -39,7 +40,7 @@ function App() {
         가나다순 정렬
       </button>
 
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {title[0]}{" "}
           <span
@@ -53,17 +54,49 @@ function App() {
         </h4>
         <p>9월 16일 발행</p>
       </div>
+
       <div className="list">
         <h4>{title[1]}</h4>
         <p>9월 16일 발행</p>
       </div>
-      <div className="list">
-        <h4>{title[2]}</h4>
-        <p>9월 16일 발행</p>
-      </div>
-
-      <Modal />
       
+      <div className="list">
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          {title[2]}
+        </h4>
+        <p>9월 16일 발행</p>
+      </div> */}
+
+      {title.map((a, i) => {
+        return (
+          <div className="list" key={i}> 
+            <h4
+              onClick={() => {
+                setModal(!modal);
+              }}
+            >
+              {title[i]}{" "}
+              <span
+                onClick={() => {
+                  const copy = [...like];
+                  copy[i]++;
+                  setLike(copy);
+                }}
+              >
+                🤍
+              </span>
+              {like[i]}
+            </h4>
+            <p>9월 16일 발행</p>
+          </div>
+        );
+      })}
+
+      {modal === true ? <Modal /> : null}
     </div>
   );
 }
@@ -75,7 +108,7 @@ const Modal = () => {
       <p>날짜</p>
       <p>상세내용</p>
     </div>
-  )
-}
+  );
+};
 
 export default App;
