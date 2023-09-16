@@ -28,7 +28,7 @@ function App() {
       >
         제목 변경
       </button>
-      
+
       <button
         onClick={() => {
           let copy = [...title];
@@ -61,8 +61,21 @@ function App() {
         <h4>{title[2]}</h4>
         <p>9월 16일 발행</p>
       </div>
+
+      <Modal />
+      
     </div>
   );
+}
+
+const Modal = () => {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
 }
 
 export default App;
