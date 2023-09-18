@@ -2,8 +2,6 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const post = "강남 우동 맛집";
-
   const [title, setTitle] = useState([
     "남자 코트 추천",
     "인스타 맛집 추천",
@@ -11,6 +9,7 @@ function App() {
   ]);
   const [like, setLike] = useState([0, 0, 0]);
   const [modal, setModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState(0);
 
   return (
     <div className="App">
@@ -18,7 +17,7 @@ function App() {
         <div>BLOG^__^</div>
       </div>
 
-      <button
+      {/* <button
         onClick={() => {
           let copy = [...title];
           copy[0] = "여자 코트 추천";
@@ -38,7 +37,7 @@ function App() {
         }}
       >
         가나다순 정렬
-      </button>
+      </button> */}
 
       {/* <div className="list">
         <h4>
@@ -73,10 +72,11 @@ function App() {
 
       {title.map((a, i) => {
         return (
-          <div className="list" key={i}> 
+          <div className="list" key={i}>
             <h4
               onClick={() => {
                 setModal(!modal);
+                setModalTitle(i);
               }}
             >
               {title[i]}{" "}
@@ -96,17 +96,33 @@ function App() {
         );
       })}
 
-      {modal === true ? <Modal /> : null}
+      {modal === true ? (
+        <Modal
+          title={title}
+          setTitle={setTitle}
+          modalTitle={modalTitle}
+          setModalTitle={setModalTitle}
+        />
+      ) : null}
     </div>
   );
 }
 
-const Modal = () => {
+const Modal = (props) => {
   return (
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.title[props.modalTitle]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button
+        onClick={() => {
+          const copy = [...props.title];
+          copy[0] = "여자 코트 추천";
+          props.setTitle(copy);
+        }}
+      >
+        글 수정
+      </button>
     </div>
   );
 };
