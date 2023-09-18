@@ -7,9 +7,10 @@ function App() {
     "인스타 맛집 추천",
     "예쁜 카페 추천",
   ]);
-  const [like, setLike] = useState([0, 0, 0]);
+  const [like, setLike] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
   const [modal, setModal] = useState(false);
   const [modalTitle, setModalTitle] = useState(0);
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <div className="App">
@@ -81,20 +82,49 @@ function App() {
             >
               {title[i]}{" "}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   const copy = [...like];
                   copy[i]++;
                   setLike(copy);
                 }}
               >
-                🤍
+                🤍 {like[i]}
               </span>
-              {like[i]}
             </h4>
             <p>9월 16일 발행</p>
+            <button
+              onClick={() => {
+                const copy = [...title];
+                copy.splice(i, 1);
+                setTitle(copy);
+              }}
+            >
+              삭제
+            </button>
           </div>
         );
       })}
+
+      <input
+        onChange={(e) => {
+          setInputValue(e.target.value);
+        }}
+      />
+
+      <button
+        onClick={() => {
+          const copy = [...title];
+          if (inputValue !== "") {
+            copy.unshift(inputValue);
+            setTitle(copy);
+          } else {
+            alert("글을 입력하세요.");
+          }
+        }}
+      >
+        글 발행
+      </button>
 
       {modal === true ? (
         <Modal
